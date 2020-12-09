@@ -1,0 +1,32 @@
+<div class="container col-sm">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit();">
+    <div class="title">
+      <h1>Sign in</h1>
+    </div>
+
+    <div class="form-group row">
+      <div class="col">
+        <input type="text" class="form-control" formControlName="email" placeholder="Email">
+      </div>
+
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <input type="password" class="form-control" formControlName="password" placeholder="Password">
+      </div>
+      
+    </div>
+
+    <div class="button">
+      <button [disabled]="!loginForm.valid" class="btn btn-primary" type="submit">  Login</button>
+    </div>
+
+    <div class="button">
+      <button class="btn btn-primary" [routerLink]="['/registeruser']" type="button"> Don't have an account?</button>
+    </div>
+    
+    <div *ngIf="succes == true?navigateToHome():false "> </div>
+    <div *ngIf="succes == false" style="color:red">Wrong username or password</div>
+
+  </form>
+</div>
