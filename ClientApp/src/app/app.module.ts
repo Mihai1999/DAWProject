@@ -11,6 +11,11 @@ import { RegisteruserComponent } from './registeruser/registeruser.component';
 import { LoginComponent } from './login/login.component';
 import { CaloriesComponent } from './calories/calories.component';
 import { EditmealComponent } from './calories/editmeal/editmeal.component';
+import { AddservingComponent } from './calories/addserving/addserving.component';
+import { AuthGuard } from './guards/auth.guard';
+import { CacheInterceptor } from './interceptors/cache-interceptor';
+import { AuthInterceptor } from './interceptors/auth-interceptor';
+import { ErrorInterceptor } from './interceptors/error-interceptor';
 
 @NgModule({
   declarations: [
@@ -21,6 +26,7 @@ import { EditmealComponent } from './calories/editmeal/editmeal.component';
     LoginComponent,
     CaloriesComponent,
     EditmealComponent,
+    AddservingComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -31,14 +37,30 @@ import { EditmealComponent } from './calories/editmeal/editmeal.component';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'registeruser', component: RegisteruserComponent },
       { path: 'login', component: LoginComponent},
-      { path: 'meals', component: CaloriesComponent},
-      { path: 'meals/:id', component: EditmealComponent},
-      { path: 'meals/edit', component: EditmealComponent},
+      { path: 'meals', component: CaloriesComponent, canActivate: [AuthGuard]},
+      { path: 'meals/:id', component: EditmealComponent, canActivate: [AuthGuard]},
+      { path: 'meals/edit', component: EditmealComponent, canActivate: [AuthGuard]},
       { path: '**', component: HomeComponent},
     ]),
     ReactiveFormsModule
   ],
   providers: [
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CacheInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

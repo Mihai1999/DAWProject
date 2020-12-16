@@ -12,7 +12,6 @@ namespace DAWProject.Models.Entities
 		public String FirstName { get; set; }
 		public String LastName { get; set; }
 		public String Email { get; set; }
-		[JsonIgnore]
 		public String Password { get; set; }
 		public ICollection<UserDailyData> UserDailyData { get; set; }
 		public ICollection<Meal> Meals { get; set; }

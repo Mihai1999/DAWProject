@@ -4,7 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Aliment } from 'src/app/models/aliment';
 import { Meal } from 'src/app/models/meal';
 import { Serving } from 'src/app/models/serving';
+import { AlimentService } from 'src/app/services/aliment.service';
 import { MealService } from 'src/app/services/meal.service';
+import { ServingService } from 'src/app/services/serving.service';
 import { Identifier } from 'typescript';
 
 @Component({
@@ -16,29 +18,34 @@ import { Identifier } from 'typescript';
 export class EditmealComponent implements OnInit {
 
   public userMeal: Meal;
+  public aliment = '';
 
-  constructor(private mealService: MealService, private formbuilder: FormBuilder, private route: ActivatedRoute) { }
+  constructor(private mealService: MealService, private formbuilder: FormBuilder, private route: ActivatedRoute,
+     private alimentService: AlimentService, private servingService: ServingService) { }
 
   public searchForm = this.formbuilder.group({
-    searchbar: ['Cauta'],
+    searchbar: [''],
   });
+
+  
 
   ngOnInit() {
     console.log("aici");
-    // this.route.queryParams
-    // .subscribe(result => {
-    //   this.getMeal(result.mealid);
-    //   setTimeout(function(){}, 10000);
-      
-    // })
+    this.route.queryParams
+    .subscribe(result => {
+      console.log("result", result.mealid);
+      this.getMeal(result.mealid);
+    })
 
-    this.getStorageItem();
+    //this.getStorageItem();
 
     console.log("userMeal",this.userMeal);
 
   }
 
+
   getMeal(id:number){
+    console.log("getMeal", id);
     this.mealService.getMeal(id).subscribe(result => {
       this.userMeal = result;
       console.log("userMeal2",this.userMeal);
@@ -50,9 +57,28 @@ export class EditmealComponent implements OnInit {
   mysearch(){
     console.log();
     var input = this.searchForm.get('searchbar').value;
+
     
+    var x = document.getElementById("afisare");
+
+    this.alimentService.getAlimentByName(input).subscribe(result => {
+      var array: Aliment[] = result;
+      x.innerText = '';
+
+      for(let aliment of array){
+        var par = document.createElement('p')
+        par.innerText = aliment.name;
+        par.className = "pcontent";
+
+
+        x.appendChild(par);
+      }
+    },
+    error => console.log(error));
+
     
   }
+
 
   getStorageItem(){
     let meal = JSON.parse(sessionStorage.getItem('editmeal'))
@@ -62,5 +88,19 @@ export class EditmealComponent implements OnInit {
 
   }
 
+  function(ev: Event){
+
+  var x = ev.target as Element;
+  this.aliment = x.innerHTML;
+    console.log(x.innerHTML); 
+  }
+
+
+  deleteServing(servingid: number){
+    this.servingService.delete(servingid).subscribe(() => {
+      this.getMeal(this.userMeal.id);
+    },
+    error => console.log(error));
+  }
 
 }

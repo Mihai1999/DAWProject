@@ -18,6 +18,10 @@ export class AlimentService {
     return this.api.get(this.url + id.toString());
   }
 
+  getAlimentByName(words: string) {
+    return this.api.get(this.url + 'name/' + words);
+  }
+
   getAliments() {
     return this.api.get(this.url);
   }

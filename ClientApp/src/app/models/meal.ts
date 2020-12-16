@@ -9,6 +9,7 @@ export class Meal {
   user: User;
   servings: Serving[];
   total: number;
+  name: string;
 
   constructor(input?: any) {
     Object.assign(this, input);

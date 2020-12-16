@@ -4,14 +4,16 @@ using DAWProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DAWProject.Migrations
 {
     [DbContext(typeof(DAWContext))]
-    partial class DAWContextModelSnapshot : ModelSnapshot
+    [Migration("20201211141355_Migration1.3")]
+    partial class Migration13
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -19,12 +19,22 @@ namespace DAWProject.Repositories.Classes
 		public List<Meal> GetMealsWithJoins(int userid, DateTime data)
 		{
 			List<Meal> result = _context.Meals
-				.Include(x => x.Servings).ThenInclude(y => y.Aliment)
 				.Where(x => x.UserId == userid && x.Date.DayOfYear == data.DayOfYear)
+				.Include(x => x.Servings).ThenInclude(y => y.Aliment)
 				.ToList();
 			
 
 			return result;
+		}
+
+		public Meal GetMealWithServingsAliment(int mealid)
+		{
+			var meal = _context.Meals.Where(x => x.Id == mealid)
+				.Include(x => x.Servings)
+				.ThenInclude(y => y.Aliment)
+				.FirstOrDefault();
+
+			return meal;
 		}
 
 		public List<Meal> GetUserMeals(int userid)
@@ -35,6 +45,16 @@ namespace DAWProject.Repositories.Classes
 							.ToList();
 
 			return result;
+		}
+
+		public void InsertMeal(Meal meal)
+		{
+			if(meal.Date == null)
+			{
+				meal.Date = DateTime.UtcNow;
+			}
+
+			_context.Add(meal);
 		}
 	}
 }

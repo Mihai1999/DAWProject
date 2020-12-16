@@ -1,10 +1,43 @@
 
 <div class="row">
+  <div class="col-lg-6">
+    <form [formGroup]="dateForm" >
+      <div class="row">
+        <h4>Choose Date</h4>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <input type="number" class="form-control" formControlName="day" (change)="changeDate();">
+        </div>
+        <div class="col">
+          <input type="number" class="form-control" formControlName="month">
+        </div>
+        <div class="col">
+          <input type="number" class="form-control" formControlName="year">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col-lg-6">
+    <form [formGroup]="addMealForm" >
+      <div class="row">
+        <div class="col">
+          <input type="text" class="form-control" formControlName="mealName">
+        </div>
+        <div class="col">
+          <button type="button" [disabled]="!addMealForm.valid" class="btn btn-primary" (click)="addMeal();">Add Meal</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+</div>
+<div class="row">
   <div class="col-lg-6" *ngFor="let meal of userMeals; let m = index">
     <div class="table-responsive-lg" >
       <table class="table table-bordered table-hover">
         <thead>
-          <th scope="col" colspan="5">Meal Name</th>
+          <th scope="col" colspan="5">{{meal.name}}</th>
           <th scope="col" style="width:20%">
             <!-- <button type="button" class="btn btn-primary btn-md"  [routerLink]="['/meals', meal.id]" 
             [queryParams]="{ mealid: meal.id}">Editeaza</button> -->

@@ -9,7 +9,7 @@ import { getBaseUrl } from 'src/main';
 })
 export class ApiService {
 
-  private readonly apiUrl = environment.requestUrl;
+  public readonly apiUrl = environment.requestUrl;
 
   private readonly header = new HttpHeaders({
     'Content-Type': 'application/json',

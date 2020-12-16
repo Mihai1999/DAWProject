@@ -1,0 +1,20 @@
+<p>addserving works!</p>
+<div class="row">
+
+  <div class="col-lg-6">
+    <form class="form-group" [formGroup]="addServingForm">
+      <label for="quantity">Introdu Canitatea</label>
+      <input class="form-control" type="number" formControlName="quantity" id="quantity">
+
+    </form>
+  </div>
+  <div class="col-lg-6">
+    <div>Numele Alimentului</div>
+    <div id="aname">{{alimentName}}</div>
+  </div>
+  <div class="col-lg-6">
+    <button type="button" class="btn btn-primary" (click)="getValues();">
+      Add
+    </button>
+  </div>
+</div>

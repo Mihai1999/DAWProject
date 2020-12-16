@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DAWProject.Helpers;
 using DAWProject.Models.Entities;
 using DAWProject.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +13,7 @@ namespace DAWProject.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
+	[Authorize]
 	public class ServingController : ControllerBase
 	{
 		private readonly IServingRepository _servingRepository;

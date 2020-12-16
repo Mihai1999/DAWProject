@@ -49,7 +49,7 @@ namespace DAWProject.Helpers
 					ValidateAudience = false,
 					ClockSkew = TimeSpan.Zero
 
-				}, out SecurityToken validateToken); ;
+				}, out SecurityToken validateToken);
 
 				var jwtToken = (JwtSecurityToken)validateToken;
 				var userId =  jwtToken.Claims.First(x => x.Type == "id").Value;

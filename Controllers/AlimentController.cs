@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DAWProject.Helpers;
 using DAWProject.Models.Entities;
 using DAWProject.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,6 +14,7 @@ namespace DAWProject.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
+	[Authorize]
 	public class AlimentController : ControllerBase
 	{
 		private readonly IAlimentRepository _alimentRepository;
@@ -34,9 +37,10 @@ namespace DAWProject.Controllers
 			return _alimentRepository.FindById(id);
 		}
 
-		[HttpGet("{name}")]
+		[HttpGet("name/{name}")]
 		public ActionResult<List<Aliment>> GetByName(string name)
 		{
+				
 			return Ok(_alimentRepository.GetByName(name));
 		}
 

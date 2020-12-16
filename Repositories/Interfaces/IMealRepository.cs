@@ -10,5 +10,7 @@ namespace DAWProject.Repositories.Interfaces
 	{
 		List<Meal> GetMealsWithJoins(int userid, DateTime data);
 		List<Meal> GetUserMeals(int userid);
+		Meal GetMealWithServingsAliment(int mealid);
+		void InsertMeal(Meal meal);
 	}
 }

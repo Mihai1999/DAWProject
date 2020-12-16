@@ -1,8 +1,9 @@
 <div class="row">
   <div class="col-lg-6 table-responsive-lg">
-    <table class="table table-bordered table-hover" *ngIf="userMeal!=undifined">
+    <table class="table table-bordered table-hover" *ngIf="userMeal!=undefined">
       <thead>
-        <th scope="col" colspan="6">Meal Name</th>
+        <th scope="col" colspan="5">Meal Name</th>
+        <th scop="col">{{userMeal.id}}</th>
       </thead>
       <thead>
         <th scope="col">#</th>
@@ -22,17 +23,20 @@
           <td>{{serving.quantity}}</td>
           <td>{{serving.calories}}</td>
           <td>
-            <button type="button" class="btn btn-danger btn-md" (click)="delete();">X</button>
+            <button type="submit" class="btn btn-danger btn-md" (click)="deleteServing(serving.id);">X</button>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div class="col-lg-6">
+  <div class="col-lg-6" id="searchdiv">
+    <div>
+      <app-addserving [alimentName]="this.aliment" *ngIf="userMeal!=undefined" [mealId]="userMeal.id" (servingAdded)="onAdd();"></app-addserving>
+    </div>
     <form class="form-group" [formGroup]="searchForm">
-    <input id="searchbar" class="form-control" type="text"  name="search" formControlName="searchbar" placeholder="Cauta Aliment">
-    <button type="button" class="btn btn-primary btn-md" (click)="mysearch();">Search</button>
-    <p id="afisare">Afisare</p>
+    <input id="searchbar" class="form-control" type="text" (keyup)="mysearch();" name="search" formControlName="searchbar" placeholder="Cauta Aliment">
+    <!-- <button type="button" class="btn btn-primary btn-md" (click)="mysearch();">Search</button> -->
+    <p id="afisare" (mousedown)="function($event);"></p>
   </form>
   </div>
 </div>
