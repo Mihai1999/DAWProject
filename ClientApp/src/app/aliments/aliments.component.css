@@ -1,0 +1,26 @@
+table{
+  width: 100%;
+}
+
+.mat-elevation-z8{
+
+  width: 100%;
+}
+
+
+.container{
+  display: flexbox;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  background-color: white;
+  width: 50%;
+
+  margin-top: 5%;
+  margin-left: 25%;
+  padding-top: 2.5%;
+  padding-bottom: 2.5%;
+}
+
+
+

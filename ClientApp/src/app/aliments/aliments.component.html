@@ -1,0 +1,101 @@
+<div class="row">
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" >
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef width="20%">Nume</th>
+        <td mat-cell *matCellDef="let aliment">{{aliment.name}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="quantity">
+        <th mat-header-cell *matHeaderCellDef width="15%">Cantitate</th>
+        <td mat-cell *matCellDef="let aliment">{{aliment.quantity}}g</td>
+      </ng-container>
+
+      <ng-container matColumnDef="calories">
+        <th mat-header-cell *matHeaderCellDef width="15%">Calorii</th>
+        <td mat-cell *matCellDef="let aliment">{{aliment.calories}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="fibers">
+        <th mat-header-cell *matHeaderCellDef width="15%">Proteine</th>
+        <td mat-cell *matCellDef="let aliment">{{aliment.fibers}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="fats">
+        <th mat-header-cell *matHeaderCellDef width="15%">Grasimi</th>
+        <td mat-cell *matCellDef="let aliment">{{aliment.fats}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="carbs">
+        <th mat-header-cell *matHeaderCellDef width="15%">Carbohidrati</th>
+        <td mat-cell *matCellDef="let aliment">{{aliment.carbs}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef width="15%">Button</th>
+        <td mat-cell *matCellDef="let aliment">
+          <button mat-flat-button color="warn" (click)="deleteAliment(aliment.id);">X</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" [appHover]="'green'"></tr>
+    </table>
+    <mat-paginator #alimentPaginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+
+</div>
+<div class="row container">
+  <div class="col-6-lg box">
+    <form [formGroup]="addAlimentForm">
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearence="fill">
+            <mat-label>Nume aliment</mat-label>
+            <input matInput type="text" class="form-control" formControlName="name">
+        </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field appearence="fill">
+            <mat-label>Cantiate</mat-label>
+            <input matInput type="number" class="form-control" formControlName="quantity">
+          </mat-form-field>
+        </div>
+        
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearence="fill">
+            <mat-label>Calorii</mat-label>
+            <input matInput type="number" class="form-control" formControlName="calories">
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field appearence="fill">
+            <mat-label>Proteine</mat-label>
+            <input matInput type="number" class="form-control" formControlName="fibers">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearence="fill">
+            <mat-label>Grasimi</mat-label>
+            <input matInput type="number" class="form-control" formControlName="fats">
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field appearence="fill">
+            <mat-label>Carbohidrati</mat-label>
+            <input matInput type="number" class="form-control" formControlName="carbs">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <button mat-flat-button color="primary" (click)="addAliment();">Adauga aliment</button>
+      
+    </form>
+    
+  </div>
+</div>

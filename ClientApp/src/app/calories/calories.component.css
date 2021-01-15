@@ -5,3 +5,17 @@
 /* .container {
   width: 50%;
 } */
+
+.row{
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-top: 5%;
+}
+
+#addmealbtn{
+  margin-top: 0%;
+}
+
+form{
+  margin-left: 5%;
+}

@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 
 import { Observable } from "rxjs";
 import { User } from "../models/user";
+import { UserService } from "../services/user.service";
 
 
 
@@ -10,9 +11,18 @@ import { User } from "../models/user";
 export class AuthInterceptor implements HttpInterceptor{
   private AUTH_HEADER= "Authorization";
 
+  currentUser: User;
+
+  constructor(private userService: UserService){
+
+  }
+
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
     
-    var user: User =new User(JSON.parse(sessionStorage.getItem('user'))) ;
+    //var user: User =new User(JSON.parse(sessionStorage.getItem('user'))) ;
+    this.userService.currentUser.subscribe(x => this.currentUser = x);
+
+    var user = this.currentUser;
     if(user == null){
       return next.handle(request);
     }
@@ -22,7 +32,7 @@ export class AuthInterceptor implements HttpInterceptor{
 
     });
 
-    console.log(request.headers.get(this.AUTH_HEADER));
+    //console.log(request.headers.get(this.AUTH_HEADER));
 
     return next.handle(request);
   }

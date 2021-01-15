@@ -4,7 +4,7 @@ export class UserDailyData {
 
   id: number;
   day: Date;
-  weight: number;
+  weigth: number;
   bpm: number;
   userid: number;
   user: User;

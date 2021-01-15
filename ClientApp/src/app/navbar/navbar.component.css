@@ -6,6 +6,7 @@ a.navbar-brand {
 }
 .navbar-nav {
     padding-right: 10%;
+
 }
 
 html {
@@ -20,4 +21,9 @@ html {
 
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+.navbar{
+  font-size: large;
+  background-color: rgb(51, 51, 153);
 }

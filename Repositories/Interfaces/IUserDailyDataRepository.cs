@@ -8,6 +8,6 @@ namespace DAWProject.Repositories.Interfaces
 {
 	public interface IUserDailyDataRepository : IGenericRepository<UserDailyData>
 	{
-
+		UserDailyData GetByDate(int userid, DateTime data);
 	}
 }

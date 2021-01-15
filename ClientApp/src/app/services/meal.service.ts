@@ -37,13 +37,16 @@ export class MealService {
   }
 
   getMealsByDate(id: number, dateInput: Date){
-
-    // var dateSent= new Date();
-    // dateSent.setUTCDate(dateInput.getUTCMonth() + 1);
-    // dateSent.setUTCMonth(dateInput.getUTCDate() -1);
-    // console.log("dateinput", dateInput);
-    // console.log("dateSent", dateSent);
+    console.log("get by date \n", dateInput);
     return this.api.post(this.url + id.toString() + '/date', dateInput);
+  }
+
+  getLeaderboards(size: number, date: Date){
+    var jsonobject = {
+      "size": size,
+      "date": date,
+    }
+    return this.api.post(this.url + 'leaderboards', jsonobject);
   }
 
 }

@@ -14,5 +14,14 @@ namespace DAWProject.Repositories.Classes
 		{
 
 		}
+
+		public UserDailyData GetByDate(int userid, DateTime data)
+		{
+
+			var dailydata = _context.UserDailyData.Where(x => x.UserId == userid &&
+			x.Day.Day == data.Day && x.Day.Month == data.Month && x.Day.Year == data.Year).OrderBy(x => x.Day).LastOrDefault();
+
+			return dailydata;
+		}
 	}
 }

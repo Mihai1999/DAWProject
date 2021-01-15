@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DAWProject.Helpers;
 using DAWProject.Models.Entities;
 using DAWProject.Repositories.Interfaces;
+using DAWProject.Services;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -17,10 +18,13 @@ namespace DAWProject.Controllers
 	public class ServingController : ControllerBase
 	{
 		private readonly IServingRepository _servingRepository;
+		private readonly IMealService _mealService;
 
-		public ServingController(IServingRepository servingRepository)
+		public ServingController(IServingRepository servingRepository,
+			IMealService mealService)
 		{
 			_servingRepository = servingRepository;
+			_mealService = mealService;
 		}
 
 		// GET: api/<ServingController>
@@ -42,6 +46,9 @@ namespace DAWProject.Controllers
 		public ActionResult Post([FromBody] Serving value)
 		{
 			_servingRepository.Create(value);
+
+			_mealService.calculateCalories(value.MealId);
+
 			return Ok(_servingRepository.Save());
 		}
 

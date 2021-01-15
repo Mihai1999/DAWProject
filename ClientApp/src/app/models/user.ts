@@ -10,6 +10,8 @@ export class User {
   token: string;
   userdailydata: UserDailyData[];
   meals: Meal[];
+  firstName: string;
+  lastName: string;
 
   constructor(input?: any) {
     Object.assign(this, input);

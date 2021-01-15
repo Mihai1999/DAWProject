@@ -3,18 +3,12 @@
   <div class="col-lg-6">
     <form [formGroup]="dateForm" >
       <div class="row">
-        <h4>Choose Date</h4>
-      </div>
-      <div class="form-group row">
-        <div class="col">
-          <input type="number" class="form-control" formControlName="day" (change)="changeDate();">
-        </div>
-        <div class="col">
-          <input type="number" class="form-control" formControlName="month">
-        </div>
-        <div class="col">
-          <input type="number" class="form-control" formControlName="year">
-        </div>
+        <mat-form-field color="accent" appearance="fill">
+          <mat-label>Choose Date</mat-label>
+          <input matInput [matDatepicker]="picker2" formControlName="datepicker" (ngModelChange)="change_datepicker();">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2 color="primary" ></mat-datepicker>
+        </mat-form-field>
       </div>
     </form>
   </div>
@@ -25,19 +19,54 @@
           <input type="text" class="form-control" formControlName="mealName">
         </div>
         <div class="col">
-          <button type="button" [disabled]="!addMealForm.valid" class="btn btn-primary" (click)="addMeal();">Add Meal</button>
+          <button type="button" [disabled]="!addMealForm.valid" class="btn btn-primary" (click)="addMeal();" id=addmealbtn>Add Meal</button>
         </div>
       </div>
     </form>
   </div>
 
 </div>
+
+<div class="row" *ngIf="this.userData != null">
+  <div class="col-lg-6" >
+
+    <b>Greutate: {{this.userData.weigth}} Kg</b>
+    <br>
+    <b>BPM: {{this.userData.bpm}}</b>
+    <br>
+  </div> 
+  <div class="col-lg-6">
+    <form [formGroup]="dailyDataForm">
+      <div class="row">
+        <div class="col">
+          <label for="weigth">Greutate</label>
+          <input type="text" class="form-control" formControlName="weigth" name="weigth">
+        </div>
+        <div class="col">
+          <label for="bpm">BPM</label>
+          <input type="text" class="form-control" formControlName="bpm">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <button type="button" class="btn btn-primary" (click)="setDailyData();">Set Data</button>
+        </div>
+
+      </div>
+    </form>
+
+  </div>
+</div>
+
 <div class="row">
   <div class="col-lg-6" *ngFor="let meal of userMeals; let m = index">
     <div class="table-responsive-lg" >
       <table class="table table-bordered table-hover">
         <thead>
-          <th scope="col" colspan="5">{{meal.name}}</th>
+          <th scope="col" colspan="4">{{meal.name}}</th>
+          <th scope="col" style="width:20%">
+            <button type="button" class="btn btn-danger btn-md" (click)="deleteMeal(meal.id)">X</button>
+          </th>
           <th scope="col" style="width:20%">
             <!-- <button type="button" class="btn btn-primary btn-md"  [routerLink]="['/meals', meal.id]" 
             [queryParams]="{ mealid: meal.id}">Editeaza</button> -->
@@ -60,14 +89,14 @@
             <td><img [src]="" class="img-fluid z-depth-1 rounded"> </td>
             <td>{{serving.aliment.name}}</td>
             <td>{{serving.quantity}}</td>
-            <td>{{serving.calories}}</td>
+            <td>{{serving.calories.toFixed(2)}}</td>
             <td>
               <button type="button" class="btn btn-danger btn-md" (click)="deleteItem(serving.id);">X</button>
             </td>
           </tr>
           <tr>
             <td colspan="4">Total</td>
-            <td>{{userMeals[m].total}}</td>
+            <td>{{userMeals[m].total.toFixed(2)}}</td>
           </tr>
         </tbody>
       </table>

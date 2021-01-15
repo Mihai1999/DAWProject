@@ -20,7 +20,12 @@ code {
   margin-top: 5%;
 }
 
-
-
-
-
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: rgb(153, 0, 255);
+  /*background: rgb(31,2,30);
+  background: linear-gradient(211deg, rgba(31,2,30,1) 12%, rgba(87,56,167,0.927608543417367) 30%);*/
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-top: 7.5%;
+ }

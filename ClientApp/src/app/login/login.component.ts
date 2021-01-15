@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { User } from '../models/user';
 import { Userlogin } from '../models/userlogin';
 import { UserService } from '../services/user.service';
+
 
 @Component({
   selector: 'app-login',
@@ -13,12 +15,14 @@ export class LoginComponent implements OnInit {
 
   public userLogin: Userlogin;
   public succes: boolean;
+  public currentUser: User;
 
 
   constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router) {}
 
   ngOnInit() {
     //console.log("loginForm", this.loginForm);
+    this.userService.currentUser.subscribe(user => this.currentUser = user);
   }
 
   public loginForm = this.formBuilder.group({
@@ -28,6 +32,13 @@ export class LoginComponent implements OnInit {
 
   onSubmit(){
     this.userLogin = this.loginForm.value;
+    this.userService.loginsubs(this.userLogin).subscribe(user => {
+      this.navigateToHome();
+    },
+    error => {this.succes = false;});
+
+
+    /* 
     this.userService.login(this.userLogin).subscribe(result => {
       console.log(result);
       sessionStorage.setItem('user', JSON.stringify(result));
@@ -39,13 +50,10 @@ export class LoginComponent implements OnInit {
       console.log(this.userLogin);
       this.succes = false;
     });
-
+    */
   }
 
-  afisare(){
-    this.succes = true;
-    console.log(this.loginForm.value);
-  }
+  
 
   resetForm(){
     this.loginForm.reset();
@@ -53,7 +61,7 @@ export class LoginComponent implements OnInit {
 
   navigateToHome(){
 
-    this.router.navigate(['/meals']);
+    this.router.navigate(['/meals/dashboard']);
 
   }
 

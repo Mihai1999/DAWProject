@@ -10,6 +10,7 @@ export class Meal {
   servings: Serving[];
   total: number;
   name: string;
+  mealCalories: number;
 
   constructor(input?: any) {
     Object.assign(this, input);

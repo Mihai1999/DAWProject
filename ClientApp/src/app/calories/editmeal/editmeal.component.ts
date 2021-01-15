@@ -19,6 +19,7 @@ export class EditmealComponent implements OnInit {
 
   public userMeal: Meal;
   public aliment = '';
+  public mealid: number;
 
   constructor(private mealService: MealService, private formbuilder: FormBuilder, private route: ActivatedRoute,
      private alimentService: AlimentService, private servingService: ServingService) { }
@@ -30,7 +31,7 @@ export class EditmealComponent implements OnInit {
   
 
   ngOnInit() {
-    console.log("aici");
+    console.log("aici ", this.mealid);
     this.route.queryParams
     .subscribe(result => {
       console.log("result", result.mealid);

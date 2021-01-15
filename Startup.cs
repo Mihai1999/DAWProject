@@ -68,6 +68,8 @@ namespace DAWProject
 
 			services.AddTransient<IAlimentRepository, AlimentRepository>();
 
+			services.AddTransient<IMealService, MealService>();
+
 
 
 

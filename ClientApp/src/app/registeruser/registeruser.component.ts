@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { SlowBuffer } from 'buffer';
 import { User } from '../models/user';
 import { ApiService } from '../services/api.service';
 import { UserService } from '../services/user.service';
+
 
 @Component({
   selector: 'app-registeruser',
@@ -15,7 +17,10 @@ export class RegisteruserComponent implements OnInit {
   public user: User;
   public succes: boolean;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private api: ApiService) { }
+  constructor(private formBuilder: FormBuilder, 
+    private userService: UserService,
+    private api: ApiService,
+    private router: Router) { }
   
 
   ngOnInit() {
@@ -48,6 +53,7 @@ export class RegisteruserComponent implements OnInit {
     this.userService.addNewUser(this.user).subscribe(() => {
       this.succes = true;
       console.log(this.registeruserForm.value);
+      this.router.navigateByUrl('auth/login');
     }, error => {
       console.log(error);
       console.log(this.user);

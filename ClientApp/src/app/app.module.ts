@@ -7,50 +7,80 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { RegisteruserComponent } from './registeruser/registeruser.component';
-import { LoginComponent } from './login/login.component';
-import { CaloriesComponent } from './calories/calories.component';
-import { EditmealComponent } from './calories/editmeal/editmeal.component';
-import { AddservingComponent } from './calories/addserving/addserving.component';
 import { AuthGuard } from './guards/auth.guard';
 import { CacheInterceptor } from './interceptors/cache-interceptor';
 import { AuthInterceptor } from './interceptors/auth-interceptor';
 import { ErrorInterceptor } from './interceptors/error-interceptor';
+import { AuthComponent } from './auth/auth.component';
+import { AuthModule } from './auth/auth.module';
+import { MealsComponent } from './meals/meals.component';
+import { MealsModule } from './meals/meals.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatBadgeModule, MatButtonModule, MatDatepickerModule, MatFormFieldModule, MatInputModule, MatNativeDateModule, MatPaginatorModule, MatSliderModule, MatTableModule } from '@angular/material';
+import 'hammerjs'
+import { AlimentsComponent } from './aliments/aliments.component';
+import { AlimentService } from './services/aliment.service';
+import { HoverDirective } from './directive/hover.directive';
+import { LoginComponent } from './login/login.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     NavbarComponent,
-    RegisteruserComponent,
-    LoginComponent,
-    CaloriesComponent,
-    EditmealComponent,
-    AddservingComponent,
+    AlimentsComponent,
+    HoverDirective,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    AuthModule,
+    MealsModule,
     //DirectivesModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'registeruser', component: RegisteruserComponent },
-      { path: 'login', component: LoginComponent},
-      { path: 'meals', component: CaloriesComponent, canActivate: [AuthGuard]},
-      { path: 'meals/:id', component: EditmealComponent, canActivate: [AuthGuard]},
-      { path: 'meals/edit', component: EditmealComponent, canActivate: [AuthGuard]},
+      { path: 'aliments', component: AlimentsComponent, canActivate: [AuthGuard]},
+
+      {
+        path: '',
+        component: AuthComponent,
+        children: [
+          {
+            path: '',
+            loadChildren:
+            () => import('./auth/auth.module').then(m => m.AuthModule)
+          }
+        ]
+      },
+      {
+        path: '',
+        component: MealsComponent,
+        children: [
+          {
+            path: '',
+            loadChildren:
+            () => import('./meals/meals.module').then(m => m.MealsModule)
+          }
+        ]
+      },
       { path: '**', component: HomeComponent},
     ]),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatSliderModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    
+ 
+    
   ],
   providers: [
     AuthGuard,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: CacheInterceptor,
-      multi: true
-    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

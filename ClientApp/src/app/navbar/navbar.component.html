@@ -1,5 +1,5 @@
-<nav class="navbar  navbar-expand-lg  navbar-toggleable-lg navbar-light bg-light border-bottom box-shadow mb-3">
-  <a class="navbar-brand" href="#">Navbar</a>
+<nav class="navbar fixed-top navbar-expand-lg  navbar-toggleable-lg navbar-dark  border-bottom box-shadow mb-3">
+  <a class="navbar-brand" [routerLink]="['/home']">Navbar</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"
           [attr.aria-expanded]="isExpanded" (click)="toggle()">
     <span class="navbar-toggler-icon"></span>
@@ -7,9 +7,11 @@
   <div class="navbar-collapse collapse d-lg-inline-flex flex-lg-row-reverse"
         [ngClass]="{ show: isExpanded }">
     <div class="navbar-nav flex-grow">
-      <a class="nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-      <a class="nav-link" [routerLink]="['meals']">Meals</a>
-      <a class="nav-link" [routerLink]="['/login']">Login</a>
+      <a class="nav-link" [routerLink]="['/home']">Home <span class="sr-only">(current)</span></a>
+      <a class="nav-link" [routerLink]="['meals/dashboard']">Meals</a>
+      <a class="nav-link" [routerLink]="['aliments']">Aliments</a>
+      <a class="nav-link" [routerLink]="['auth/login']" *ngIf="!currentUser">Login</a>
+      <a class="nav-link" (click)="Logout();" *ngIf="currentUser">Logout</a>
     </div>
   </div>
 </nav>

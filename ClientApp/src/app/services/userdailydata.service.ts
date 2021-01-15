@@ -27,5 +27,10 @@ export class UserdailydataService {
     return this.api.put(this.url + userdailydata.id.toString(), userdailydata);
   }
 
+  getDatabyDate(id: number, data: Date){
+    console.log(id, data);
+    return this.api.post(this.url + id.toString(), data);
+    
+  }
 
 }

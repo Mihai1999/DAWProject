@@ -1,4 +1,5 @@
 ﻿using DAWProject.DTOs;
+using DAWProject.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,6 @@ namespace DAWProject.Services
 	public interface IUserService
 	{
 		UserResponseDTO Authentificate(UserRequestDTO userRequest);
+
 	}
 }
